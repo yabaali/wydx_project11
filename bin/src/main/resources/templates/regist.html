@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+    <script src="/signin/dd/ie-emulation-modes-warning.js"></script>
+    <script>
+        //产生验证码 
+        window.onload = function() {
+            createCode()
+        }
+        var code; //在全局定义验证码 
+        function createCode() {
+            code = "";
+            var codeLength = 4; //验证码的长度 
+            var checkCode = document.getElementById("code");
+            var random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+                'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //随机数 
+            for (var i = 0; i < codeLength; i++) { //循环操作 
+                var index = Math.floor(Math.random() * 36); //取得随机数的索引（0~35） 
+                code += random[index]; //根据索引取得随机数加到code上 
+            }
+            checkCode.value = code; //把code值赋给验证码 
+        }
+        //校验验证码 
+        function validate() {
+            var inputCode = document.getElementById("ctl00_txtcode").value.toUpperCase(); //获取输入框内验证码并转化为大写  
+            if (inputCode.length <= 0) { //若输入的验证码长度为0 
+                alert("请输入验证码！"); //则弹出请输入验证码 
+            } else if (inputCode != code) { //若输入的验证码与产生的验证码不一致时 
+                alert("验证码输入错误!"); //则弹出验证码输入错误 
+                createCode(); //刷新验证码 
+                document.getElementById("ctl00_txtcode").value = ""; //清空文本框 
+                window.location.href = "/user/toRegist"
+            } else { //输入正确时 
+            	window.location.href = "/user/addUser"
+
+
+            }
+        }
+        function checkForm(form) {
+
+    		if (form.username.value == "") {
+
+    			alert("错误：用户名不能为空！");
+
+    			form.username.focus();
+
+    			return false;
+
+    		}
+    		if (form.password.value.length > 30) {
+
+    			alert("错误：密码最多包含30个字符！");
+
+    			form.password.focus();
+
+    			return false;
+
+    		}
+    		if (form.realname.value.length > 20) {
+
+    			alert("错误：真实姓名最多包含20个字符！");
+
+    			form.realname.focus();
+
+    			return false;
+    		}
+    		if (form.username.value.length > 30) {
+
+    			alert("错误：用户姓名最多包含30个字符！");
+
+    			form.username.focus();
+
+    			return false;
+    		}
+    		var inputCode = document.getElementById("ctl00_txtcode").value.toUpperCase(); //获取输入框内验证码并转化为大写  
+            if (inputCode.length <= 0) { //若输入的验证码长度为0 
+                alert("请输入验证码！"); //则弹出请输入验证码 
+            } else if (inputCode != code) { //若输入的验证码与产生的验证码不一致时 
+                alert("验证码输入错误!"); //则弹出验证码输入错误 
+                createCode(); //刷新验证码 
+                document.getElementById("ctl00_txtcode").value = ""; //清空文本框 
+                return false;
+            }
+    	}
+    </script>
+    <!-- <style type="text/css">
+        /* .code {
+            background-image: url(code.jpg);
+            font-family: Arial;
+            font-style: italic;
+            color: Red;
+            border: 0;
+            padding: 2px 3px;
+            letter-spacing: 3px;
+            font-weight: bolder;
+        } */
+        /* .unchanged {
+            border: 0;
+        } */
+        /* .input-val {
+            width: 200px;
+            height: 32px;
+            border: none;
+            box-sizing: border-box;
+        } */
+    </style>
+    <script language="javascript" type="text/javascript">
+        var code; //此为全局， 定义验证码  
+        function createCode() {
+            code = "";
+            var codeLength = 4; //验证码的长度  
+            var checkCode = document.getElementById("checkCode");
+            var selectChar = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G',
+                'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //所有候选组成验证码的字符，当然也可以用中文的  
+
+            for (var i = 0; i < codeLength; i++) {
+                var charIndex = Math.floor(Math.random() * 36);
+                code += selectChar[charIndex];
+            }
+            //alert(code);
+            if (checkCode) {
+                checkCode.className = "code";
+                checkCode.value = code;
+            }
+        }
+
+        function validate() {
+            var inputCode = document.getElementById("input1").value;
+            if (inputCode.length <= 0) {
+                alert("请输入验证码！");
+            } else if (inputCode != code) {
+                alert("验证码输入错误！");
+                createCode(); //刷新验证码  
+            } else {
+                alert("^-^ OK");
+            }
+        }
+    </script> -->
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>注册员工信息</h1>
+        <form class="form-signin" method="post" onsubmit="return checkForm(this);"  action="/user/addUser">
+
+            <h2 class="form-signin-heading">注册</h2>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input name="username" type="text" id="inputEmail" class="form-control" placeholder="用户名" required autofocus>
+            <label for="inputName" class="sr-only">Name</label>
+            <input name="realname" type="text" id="inputName" class="form-control" placeholder="真实姓名" required autofocus>
+            <label for="inputPassword" class="sr-only"></label>
+            <div>
+                <input type="radio" class="sex" name="sex" value="man" required autofocus checked>男
+                <input type="radio" class="sex" name="sex" value="woman" required autofocus>女
+            </div>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input name="password" type="password" id="inputPassword" class="form-control" placeholder="密码" required>
+            <label for="inputPassword" class="sr-only">Password</label>
+            
+            <!--时间：2017-01-11 描述：输入框ct100_textcode -->
+            <input type="text" id="ctl00_txtcode" class="text1" />
+            <!--时间：2017-01-11 描述：把验证码定义为按钮，点击刷新-->
+            <input type="button" id="code" onclick="createCode()" />
+            <!--时间：2017-01-11 描述：验证按钮 -->
+            <!-- <div class="code">
+                <form action="">
+                    <input type="check1" id="input1" class="form-control" placeholder="输入验证码" required/>
+                    <input type="text" onclick="createCode()" readonly="readonly" id="checkCode" class="form-control" />
+
+                    <input id="Button1" class="btn" onclick="validate();" type="button" value="确定" />
+
+            </div> -->
+            <br>
+            <span>已有账号？</span>
+            <input type="button" value="登陆" onclick="denglu()">
+            <script>
+                function denglu() {
+                    window.location.href = "/tologin"
+                }
+            </script>
+            <button name="zhuce" class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+
+
+        </form>
+        <p style="color: red;" th:text="${error}"></p>
+
+    </div>
+    <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/signin/dd/ie10-viewport-bug-workaround.js"></script>
+
+</body>
+
+</html>

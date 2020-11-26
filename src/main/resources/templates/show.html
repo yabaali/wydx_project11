@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>员工管理信息</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        body {
+            zoom: 0.9;
+        }
+        
+        .bg2 {
+            background: linear-gradient(45deg, #a0d7ec, #e6b9bf);
+            position: fixed;
+            width: 100%;
+            height: 8.9%;
+            bottom: 0;
+        }
+        
+        .title {
+            background: linear-gradient(45deg, #e6b9bf, #a0d7ec);
+            position: fixed;
+            margin-top: 0%;
+            width: 100%;
+            height: 130px;
+            margin: 0px auto;
+        }
+        
+        .size {
+            position: fixed;
+            width: 100%;
+        }
+        
+        .tit {
+            color: rgb(69, 29, 133);
+            font-weight: 800;
+        }
+        
+        .th1 {
+            width: 12%;
+            text-align: center;
+        }
+        
+        .th2 {
+            width: 22%;
+            text-align: center;
+        }
+        
+        .th3 {
+            width: 22%;
+            text-align: center;
+        }
+        
+        .th4 {
+            width: 22%;
+            text-align: center;
+        }
+        
+        .th5 {
+            width: 22%;
+            text-align: center;
+        }
+        
+        h2 {
+            float: right;
+        }
+        
+        .realname {
+            text-align: right;
+            width: 97%;
+            float: left;
+        }
+        
+        .exit {
+            position: fixed;
+            right: 20px;
+            top: 0px;
+            color: #276b80;
+        }
+        
+        .tit {
+            line-height: 160px;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        .serchAdd {
+            position: fixed;
+            top: 150px;
+            left: 5%;
+        }
+        
+        .form-control {
+            top: 135px;
+            width: 180px;
+        }
+        
+        .size {
+            width: 90%;
+            margin-left: 5%;
+            position: fixed;
+            top: 210px;
+            text-align: center;
+        }
+        
+        .btn1 {
+            position: fixed;
+            left: 262px;
+            top: 150px;
+        }
+        
+        .add {
+            position: fixed;
+            left: 311px;
+            top: 130px;
+        }
+        
+        ul.pagination {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            position: fixed;
+            top: 85%;
+            left: 5%;
+        }
+        
+        ul.pagination li {
+            display: inline;
+        }
+        
+        ul.pagination li a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+        
+        ul.pagination li a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        ul.pagination li a:hover:not(.active) {
+            background-color: #ddd;
+        }
+        
+        .td1 {
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function check(form) {
+
+            if (form.name.value == "") {
+
+                alert("错误：请输入用户名 ");
+
+                form.name.focus();
+
+                return false;
+
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="bg">
+        <div class="title">
+
+            <h1 class="tit">欢迎使用员工管理系统</h1>
+        </div>
+
+        <div class="serchAdd">
+            <form action="/emp/findByName" onsubmit="return check(this);" method="post">
+                <input class="form-control" name="name" type="text" placeholder="请输入用户名">
+                <div class="btn1"><button class="btn btn-primary glyphicon glyphicon-search" type="submit"><button></div>
+            </form>
+        </div>
+        <div class="exit">
+            <h3><a class="btn btn-primary" href="emp" th:href="@{/tologin}">退出</a></h3>
+        </div>
+
+            <div class="add">
+            <h2><a class="btn btn-primary" href="emp" th:href="@{/emp/toAddEmp}">员工添加</a></h2>
+            </div>
+        
+            <br>
+        <div class="size">
+            <table class="table table-bordered" cellpadding="1" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="th1">ID</th>
+                        <th class="th2">名字</th>
+                        <th class="th3">工资</th>
+                        <th class="th4">年龄</th>
+                        <th class="th5">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="emp:${emps}">
+                        <td th:text="${emp.id}"></td>
+                        <td>[[${emp.name}]]</td>
+                        <td th:text="${emp.salary}"></td>
+                        <td th:text="${emp.age}"></td>
+                        <!-- <td th:text="${#dates.format(emp.birth, 'yyyy-MM-dd HH:mm')}"></td> -->
+                        <td class="td">
+                            <a th:href="@{/emp/toUpdataEmp/{id}(id=${emp.id})}" class="glyphicon glyphicon-pencil">编辑</a>
+                            &nbsp;&nbsp;<a th:href="@{/emp/del/{id}(id=${emp.id})}" class="glyphicon glyphicon-trash">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="bg2">
+
+        </div>
+    </div>
+    
+    <br>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <!-- <li>
+                <a href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a> -->
+            <li><a href="/emp/findByPage/1">1</span></a> 
+                <a href="/emp/findByPage/2">2</span></a>
+            </li>
+            <li>
+                <a href="/emp/findByPage/3"></i>
+                    </span><span class="pc">3</span></a>
+            </li>
+            <li>
+                <a href="/emp/findByPage/4"></i>
+                    </span><span class="pc">4</span></a>
+            </li>
+            <li>
+                <a href="/emp/findByPage/5"></i>
+                    </span><span class="pc">5</span></a>
+            </li>
+            
+            <!-- <li>
+                <a href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a> -->
+            <!-- <a href=">下一页 </a> -->
+        </ul>
+        
+    
+</body>
+
+</html>

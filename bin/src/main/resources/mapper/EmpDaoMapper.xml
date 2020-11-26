@@ -1,0 +1,32 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ibm.cn.mapper.EmployeeMapper">
+
+	<select id="getAllEmp" resultType="com.ibm.cn.entity.Employee">
+		select * from t_emp
+	</select>
+	
+	<insert id="insertEmp" parameterType="com.ibm.cn.entity.Employee">
+		insert into t_emp(name,salary,age) values(#{name},#{salary},#{age})
+	</insert>
+	
+	<delete id="delEmp" parameterType="int">
+		DELETE FROM t_emp WHERE id=#{id}
+	</delete>
+	
+	<update id="updataEmp" parameterType="com.ibm.cn.entity.Employee">
+		UPDATE t_emp SET name=#{name},salary=#{salary},age=#{age}
+		WHERE id=#{id}
+	</update>
+	
+	<!-- 根据id查询数据 -->
+	<select id="getEmpById" parameterType="Integer" resultType="com.ibm.cn.entity.Employee">
+		select * from t_emp where id=#{id}
+	</select>
+	
+	<!-- 根据员工名字模糊查询 -->
+	
+	<select id="getEmpByName" parameterType="String" resultType="com.ibm.cn.entity.Employee">
+		select * from t_emp where name like #{name}
+	</select>
+	
+</mapper>

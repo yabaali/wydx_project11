@@ -1,0 +1,14 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ibm.cn.mapper.UserMapper">
+
+	<!-- 插入用户 -->
+	<insert id="addUser" parameterType="com.ibm.cn.entity.User">
+		insert into t_user(username,realname,password,sex) values(#{username},#{realname},#{password},#{sex})
+	</insert>
+	
+	<!-- 根据用户名和密码查找用户 -->
+	<select id="findUser" parameterType="com.ibm.cn.entity.User" resultType="com.ibm.cn.entity.User">
+		select * from t_user where username=#{username} and password=#{password}
+	</select>
+	
+</mapper>
